@@ -1,7 +1,12 @@
 import { PrismaClient } from '@prisma/client';
+import { PrismaPg } from '@prisma/adapter-pg';
+import pg from 'pg';
 import bcrypt from 'bcrypt';
 
-const prisma = new PrismaClient();
+const connectionString = `${process.env.DATABASE_URL}`;
+const pool = new pg.Pool({ connectionString });
+const adapter = new PrismaPg(pool);
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const email = process.env.ADMIN_EMAIL || 'admin@framework.cz';
@@ -16,7 +21,7 @@ async function main() {
   const admin = await prisma.user.upsert({
     where: { email: email },
     update: {
-      password: hashedPassword, // Allows updating password via environment variable
+      password: hashedPassword,
       role: 'ADMIN',
     },
     create: {
@@ -51,9 +56,11 @@ async function main() {
 main()
   .then(async () => {
     await prisma.$disconnect();
+    await pool.end();
   })
   .catch(async (e) => {
     console.error('❌ Error during seeding:', e);
     await prisma.$disconnect();
+    await pool.end();
     process.exit(1);
   });
