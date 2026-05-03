@@ -31,7 +31,7 @@ export async function POST(req: Request) {
         await mkdir(uploadDir, { recursive: true });
       } catch (e) {}
 
-      const fileName = `${session.user.id}-${Date.now()}-${file.name}`;
+      const fileName = `${(session.user as any).id}-${Date.now()}-${file.name}`;
       const path = join(uploadDir, fileName);
       await writeFile(path, buffer);
       imagePath = `/uploads/${fileName}`;

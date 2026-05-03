@@ -1,5 +1,7 @@
 import { prisma } from "@/lib/prisma";
-import { Settings, Server, Globe, MessageSquare, Database, Mail, Github, Cloud } from "lucide-react";
+import { Settings, Server, Globe, MessageSquare, Database, Mail, GitBranch, Cloud } from "lucide-react";
+
+export const dynamic = 'force-dynamic';
 
 export default async function AdminPage() {
   // Fetch configs
@@ -82,7 +84,7 @@ export default async function AdminPage() {
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', padding: '0.75rem', borderRadius: 'var(--radius)', backgroundColor: 'var(--accent)' }}>
-                <Github size={18} />
+                <GitBranch size={18} />
                 <div style={{ flex: 1 }}>
                   <div style={{ fontSize: '0.875rem', fontWeight: 600 }}>Git Projekt</div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--muted-foreground)' }}>Propojení s GitHub/GitLab repozitářem</div>

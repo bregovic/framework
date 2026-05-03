@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, Shield, Zap, Layout, MobileFriendly, Smartphone } from "lucide-react";
+import { ArrowRight, Shield, Zap, Layout, Smartphone } from "lucide-react";
 
 export default function Home() {
   return (
